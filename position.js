@@ -570,7 +570,7 @@ Position.prototype.addPiece = function(sq, pc, bDel) {
     pcAdjust = pc - 16;
     this.vlBlack += bDel ? -PIECE_VALUE[pcAdjust][SQUARE_FLIP(sq)] :
         PIECE_VALUE[pcAdjust][SQUARE_FLIP(sq)];
-    pcAdjust += 7;
+    pcAdjust += 8;
   }
   this.zobristKey ^= PreGen_zobristKeyTable[pcAdjust][sq];
   this.zobristLock ^= PreGen_zobristLockTable[pcAdjust][sq];
