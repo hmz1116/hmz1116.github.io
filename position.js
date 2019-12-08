@@ -1159,9 +1159,9 @@ Position.prototype.shieldcanattack = function(shieldsq,callersq,bopp) {
     //判断有没有根
     //来自马
     for (var i = 0; i < 4; i ++) {
-      /*if (this.squares[sqSrc + ADVISOR_DELTA[i]] != 0) {
+      if (this.squares[sqSrc + ADVISOR_DELTA[i]] != 0) {
         continue;
-      }*/
+      }
       for (var j = 0; j < 2; j ++) {
         var pcDst = this.squares[sqSrc + KNIGHT_CHECK_DELTA[i][j]];
         if (pcDst == pcSelfSide + PIECE_KNIGHT) {
