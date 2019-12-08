@@ -1153,7 +1153,7 @@ Position.prototype.shieldcanattack = function(shieldsq,callersq,bopp) {
     || (this.squares[sqSrc+16] & pcSelfSide) != 0 
     || (this.squares[sqSrc+17] & pcSelfSide) != 0 
     || (this.squares[sqSrc+1] & pcSelfSide) != 0 
-    || (this.squares[sqSrc-14] & pcSelfSide) != 0 ){
+    || (this.squares[sqSrc-17] & pcSelfSide) != 0 ){
       return true;
     }
     //判断有没有根
