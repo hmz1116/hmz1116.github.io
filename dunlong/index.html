@@ -77,10 +77,10 @@ label {
         </select></div>
         <div class="label">模式选择</div>
         <div><select id="selHandicap" style="padding:0px">
-          <option selected value="0">双方加盾</option>
-          <option value="1">双方飞龙</option>
-          <option value="2">红方加盾 VS 黑方飞龙</option>
-          <option value="3">红方飞龙 VS 黑方加盾</option>
+          <option selected value="0">红方加盾 VS 黑方飞龙</option>
+          <option value="1">红方飞龙 VS 黑方加盾</option>
+          <option value="2">双方加盾</option>
+          <option value="3">双方飞龙</option>
           <option value="4">双方加盾飞龙</option>
         </select></div>
         <div style="padding-top:2px"><input type="button" class="button" value="重新开始" onclick="restart_click()"></div>
@@ -106,10 +106,10 @@ label {
 "use strict";
 
 var STARTUP_FEN = [
-  "rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/S1P1P1P1S/1C5C1/9/RNBAKABNR Xxw",
-  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR Ddw",
   "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/S1P1P1P1S/1C5C1/9/RNBAKABNR Xdw",
   "rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR Dxw",
+  "rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/S1P1P1P1S/1C5C1/9/RNBAKABNR Xxw",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR Ddw",
   "rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/S1P1P1P1S/1C5C1/9/RNBAKABNR Ddw",
   "rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/S1P1P1P1S/1C5C1/9/RNBAKAB1R w",
   "rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/S1P1P1P1S/1C5C1/9/R1BAKAB1R w",
