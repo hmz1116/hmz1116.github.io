@@ -67,7 +67,7 @@ function Board(container, images, sounds) {
   this.sounds = sounds;
   this.pos = new Position();
   //this.pos.fromFen("rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1");
-  this.pos.fromFen("rnbakabnr/9/1c5c1/s1p1p1p1s/9/9/S1P1P1P1S/1C5C1/9/RNBAKABNR Xxw - - 0 1");
+  this.pos.fromFen("rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/S1P1P1P1S/1C5C1/9/RNBAKABNR Xdw - - 0 1");
   this.animated = true;
   this.sound = true;
   this.search = null;
