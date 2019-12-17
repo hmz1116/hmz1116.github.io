@@ -1629,10 +1629,13 @@ Position.prototype.legalMove = function(mv) {
     var delta = (pcSelfSide == PCREDSIDE) ? 16 : -16;
     return (pcDst == 0 && sqDst - delta != sqSrc && (this.squares[sqDst - delta] & pcSelfSide) != 0) || KING_SPAN(sqSrc, sqDst);
   case PIECE_PHANTOM:
-    if ((this.squares[sqDst] & pcSelfSide) != 0){
-      if (this.squares[sqDst]%PCNUM > PIECE_BISHOP){
+    if ((pcDst & pcSelfSide) != 0){
+      if (pcDst%PCNUM > PIECE_BISHOP){
         return true;
       }
+    }
+    if((pcDst & pcOppSide) != 0){
+      return false;
     }
     var delta;
     if ((sqDst-sqSrc)%15 == 0) {
