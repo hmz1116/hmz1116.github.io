@@ -1091,7 +1091,7 @@ Position.prototype.generateMoves = function(vls) {
     case PIECE_KING:
       for (var i = 0; i < 4; i ++) {
         var sqDst = sqSrc + KING_DELTA[i];
-        if (!IN_FORT(sqDst) && !this.bwizard4generate) {
+        if ((this.bwizard4generate ? !IN_BOARD(sqDst) : !IN_FORT(sqDst))) {
           continue;
         }
         var pcDst = this.squares[sqDst];
@@ -1110,7 +1110,7 @@ Position.prototype.generateMoves = function(vls) {
       if(this.bDragon(this.sdPlayer)){
         for (var i = 0; i < 4; i ++) {
           var sqDst = sqSrc + KING_DELTA[i];
-          if (!IN_FORT(sqDst) && this.bwizard4generate) {
+          if ((this.bwizard4generate ? true : !IN_FORT(sqDst))) {
             continue;
           }
           var di = 0;
@@ -1148,7 +1148,7 @@ Position.prototype.generateMoves = function(vls) {
     case PIECE_ADVISOR:
       for (var i = 0; i < 4; i ++) {
         var sqDst = sqSrc + ADVISOR_DELTA[i];
-        if (!IN_FORT(sqDst) && !this.bwizard4generate) {
+        if ((this.bwizard4generate ? !IN_BOARD(sqDst) : !IN_FORT(sqDst))) {
           continue;
         }
         var pcDst = this.squares[sqDst];
@@ -1168,11 +1168,13 @@ Position.prototype.generateMoves = function(vls) {
     case PIECE_BISHOP:
       for (var i = 0; i < 4; i ++) {
         var sqDst = sqSrc + ADVISOR_DELTA[i];
-        if (!(IN_BOARD(sqDst) && (HOME_HALF(sqDst, this.sdPlayer) || this.bwizard4generate) &&
-            this.squares[sqDst] == 0)) {
+        if (!(IN_BOARD(sqDst) && (this.bwizard4generate ? IN_BOARD(sqDst) : HOME_HALF(sqDst, this.sdPlayer)) && this.squares[sqDst] == 0)) {
           continue;
         }
         sqDst += ADVISOR_DELTA[i];
+	if (!IN_BOARD(sqDst)) {
+          continue;
+        }
         var pcDst = this.squares[sqDst];
         if((pcDst & PCNOMAX) == PIECE_DIAMOND){
           continue;
@@ -1737,16 +1739,15 @@ Position.prototype.legalMove = function(mv) {
   switch (pcSrc - pcSelfSide) {
   case PIECE_KING:
     if(sqDg == 0){
-      return (IN_FORT(sqDst) || this.bwizard4legal) && KING_SPAN(sqSrc, sqDst);
+      return (this.bwizard4legal ? IN_BOARD(sqDst) : IN_FORT(sqDst)) && KING_SPAN(sqSrc, sqDst);
     }
     else{
-      return this.bDragon(this.sdPlayer) && (IN_FORT(sqDg) && !this.bwizard4legal) && KING_SPAN(sqSrc, sqDg);
+      return this.bDragon(this.sdPlayer) && (this.bwizard4legal ? false : IN_FORT(sqDg)) && KING_SPAN(sqSrc, sqDg);
     }
   case PIECE_ADVISOR:
-    return (IN_FORT(sqDst) || this.bwizard4legal) && ADVISOR_SPAN(sqSrc, sqDst);
+    return (this.bwizard4legal ? IN_BOARD(sqDst) : IN_FORT(sqDst)) && ADVISOR_SPAN(sqSrc, sqDst);
   case PIECE_BISHOP:
-    return (SAME_HALF(sqSrc, sqDst) || this.bwizard4legal) && BISHOP_SPAN(sqSrc, sqDst) &&
-        this.squares[BISHOP_PIN(sqSrc, sqDst)] == 0;
+    return (this.bwizard4legal ? IN_BOARD(sqDst) : SAME_HALF(sqSrc, sqDst)) && BISHOP_SPAN(sqSrc, sqDst) && this.squares[BISHOP_PIN(sqSrc, sqDst)] == 0;
   case PIECE_KNIGHT:
     var sqPin = KNIGHT_PIN(sqSrc, sqDst);
     return sqPin != sqSrc && this.squares[sqPin] == 0;
@@ -2042,7 +2043,7 @@ Position.prototype.shieldcanattack = function(shieldsq,callersq,bopp) {
   var pcSelfSide = SIDE_TAG(this.sdPlayer);
   var pcOppSide = OPP_SIDE_TAG(this.sdPlayer);
   
-  if(!this.bwizard4shield){
+  /*if(!this.bwizard4shield){
     var wpc = WIZARDPIECE[this.lastmovepc[1-this.sdPlayer]];
     this.bwizard4shield = wpc != PIECE_KING && WIZARDPIECE[wpc] != PIECE_WIZARD;
     if(this.bwizard4shield){
@@ -2052,7 +2053,7 @@ Position.prototype.shieldcanattack = function(shieldsq,callersq,bopp) {
       this.bwizard4shield = false;
       return bshieldcanattack;
     }
-  }
+  }*/
 
   //for (var sqSrc = 0; sqSrc < 256; sqSrc ++) {
   var sqSrc = shieldsq;{
