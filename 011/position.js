@@ -2667,7 +2667,7 @@ Position.prototype.bookMove = function() {
 }
 
 Position.prototype.historyIndex = function(mv) {
-  return ((this.squares[SRC(mv)] - 8) << 8) + DST(mv);
+  return ((this.squares[SRC(mv)] - PCNUM) << 8) + DST(mv);
 }
 
 Position.prototype.bDragon = function(sd) {
