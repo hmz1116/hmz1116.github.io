@@ -758,7 +758,8 @@ function MOVE() {
 }
 
 function MIRROR_MOVE(mv) {
-  return MOVE(MIRROR_SQUARE(SRC(mv)), MIRROR_SQUARE(DST(mv)), MTYPE(mv), MIRROR_SQUARE(MPARAM(mv)));
+  var mType = MTYPE(mv);
+  return ((mType == MTYPE_NORMAL) ? MOVE(MIRROR_SQUARE(SRC(mv)), MIRROR_SQUARE(DST(mv))) : MOVE(MIRROR_SQUARE(SRC(mv)), MIRROR_SQUARE(DST(mv)), mType, MIRROR_SQUARE(MPARAM(mv))));
 }
 
 function MVV_LVA(pc, lva) {
@@ -1929,8 +1930,8 @@ Position.prototype.generateMoves = function(vls) {
         var mType = MTYPE_NORMAL;
         var mParam = 0;
         while (IN_BOARD(sqDst)) {
-          mType = (/*IN_MYFORT(this.sdPlayer, sqSrc) || */IN_MYFORT(this.sdPlayer, sqDst)) ? MTYPE_NORMAL : MTYPE_DEVIL;
-          var pcDst = this.squares[sqDst];
+          mType = ((/*IN_MYFORT(this.sdPlayer, sqSrc) || */IN_MYFORT(this.sdPlayer, sqDst)) ? MTYPE_NORMAL : MTYPE_DEVIL;
+          var pcDst = this.squares[sqDst]);
           if((pcDst & PCNOMAX) == PIECE_DIAMOND){
             break;
           }
@@ -2178,7 +2179,7 @@ Position.prototype.legalMove = function(mv) {
     var sqPin = KNIGHT_PIN(sqSrc, sqDst);
     return ((KING_SPAN(sqSrc, sqDst) || ADVISOR_SPAN(sqSrc, sqDst)) && pcDst == 0) || (sqPin != sqSrc && sqPin != (sqSrc - 1) && sqPin != (sqSrc + 1) && this.squares[sqPin] == 0);
   case PIECE_DEVIL:
-    if(mType != (/*IN_MYFORT(this.sdPlayer, sqSrc) || */IN_MYFORT(this.sdPlayer, sqDst)) ? MTYPE_NORMAL : MTYPE_DEVIL){
+    if(mType != ((/*IN_MYFORT(this.sdPlayer, sqSrc) || */IN_MYFORT(this.sdPlayer, sqDst)) ? MTYPE_NORMAL : MTYPE_DEVIL)){
       return false;
     }
     if(mType == MTYPE_DEVIL && !(IN_MYFORT(this.sdPlayer, mParam) && (this.squares[mParam] & pcSelfSide) != 0 && (this.squares[mParam] & PCNOMAX) != PIECE_KING)){
